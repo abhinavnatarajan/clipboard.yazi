@@ -51,13 +51,13 @@ function M:copy()
 
 	ya.dbg("Clipboard", "cmd", cmd)
 	cmd = Command("sh"):arg({ "-c", cmd, "--" }):arg(paths)
-	local output, err = cmd:output()
+	local status, err = cmd:status()
 	if err then
 		ya.err("Clipboard", "cmd failed", err)
 		return self:notify_error("Run command failed: " .. tostring(err))
 	end
 	if output then
-		ya.dbg("Clipboard", "cmd output", output.status.code, output.stdout, output.stderr)
+		ya.dbg("Clipboard", "cmd status and success: ", status.code, ", ", status.success)
 	end
 end
 
