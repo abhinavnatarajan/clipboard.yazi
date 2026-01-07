@@ -50,7 +50,7 @@ function M:copy()
 	end
 
 	ya.dbg("Clipboard", "cmd", cmd)
-	local cmd = Command("sh"):arg({ "-c", cmd, "--" }):arg(paths)
+	cmd = Command("sh"):arg({ "-c", cmd, "--" }):arg(paths)
 	local output, err = cmd:output()
 	if err then
 		ya.err("Clipboard", "cmd failed", err)
@@ -126,7 +126,7 @@ function M:copy_x11_cmd()
 	if not (status and status.success) then
 		return nil, "xclip not found"
 	end
-	return [[echo "$@" | xclip -i -selection clipboard -t text/uri-list]], nil
+	return [[echo "$@" | xclip -i -selection clipboard -t text/uri-list && return 0]], nil
 end
 
 function M:copy_wayland_cmd()
@@ -138,7 +138,7 @@ function M:copy_wayland_cmd()
 	if not (status and status.success) then
 		return nil, "wl-copy not found"
 	end
-	return [[for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list]], nil
+	return [[ for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list && return 0]], nil
 end
 
 function M:notify_error(msg)

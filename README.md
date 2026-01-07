@@ -1,3 +1,5 @@
+Forked from [XYenon/clipboard.yazi](https://github.com/XYenon/clipboard.yazi).
+
 # clipboard.yazi
 
 Synchronize the file paths currently yanked in the Yazi file manager with your system clipboard. The plugin supports macOS and Linux desktops out of the box.
