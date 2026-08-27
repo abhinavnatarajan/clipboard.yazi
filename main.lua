@@ -1,11 +1,10 @@
 local get_yanked_paths = ya.sync(function(state)
 	local paths = {}
-	for _, v in pairs(cx.yanked) do
-		if not v.is_regular then
-			goto continue
+	for _, file in pairs(cx.yanked) do
+		if file.url.spec.is_regular then
+			-- file is not a search:// result
+			table.insert(paths, tostring(v))
 		end
-		table.insert(paths, tostring(v))
-		::continue::
 	end
 	return paths
 end)
